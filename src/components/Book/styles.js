@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.figure`
   cursor: ${({$isLarge})=>($isLarge ? 'default':'pointer')};
+  pointer-events: ${({ $isPanelOpen }) => ($isPanelOpen ? "none" : "auto")};
   margin: 0;
 `;
 export const Cover = styled.img`

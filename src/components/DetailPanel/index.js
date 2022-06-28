@@ -1,13 +1,16 @@
 import React from "react";
-import { Panel, P, Em, Close, ClosedWrapper, BG } from "./styles";
+import { Panel, P, Em, ClosedWrapper, BG, Btn} from "./styles";
+import { Close } from "../../styles";
 import Book from "../Book";
-const DetailPanel = ({ book, closePanel, state }) => {
-  console.log(state);
+const DetailPanel = ({ book, closePanel, stage }) => {
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
   return (
     <>
-      <BG onClick={closePanel}>
-        <Panel $state={state}>
-          <ClosedWrapper onClick={closePanel} $state={state}>
+      <BG onClick={closePanel} $stage={stage}/>
+        <Panel $stage={stage} onClick={(e)=>{e.preventDefault();}}>
+          <ClosedWrapper onClick={closePanel} $stage={stage}>
             <Close />
           </ClosedWrapper>
           {book && (
@@ -17,10 +20,10 @@ const DetailPanel = ({ book, closePanel, state }) => {
               <P>
                 <Em>Published in {book.published}</Em>
               </P>
+              {book.link?<Btn onClick={()=>openInNewTab(book.link)}>You can buy the book here</Btn>:''}
             </>
           )}
         </Panel>
-      </BG>
     </>
   );
 };
